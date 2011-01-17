@@ -1,5 +1,4 @@
 
-
 "to use ek.vim functionality this is necessary
 :au VimEnter * :call Ek_initializer()
 
@@ -9,6 +8,7 @@
 :map #6 :NERDTreeToggle<CR>
 :map #7 :TlistToggle<CR>
 :map #8 :NERDTree<CR>
+:nnoremap #9 :buffers<CR>:buffer<Space>
 
 
 nnoremap <silent> #11 :BufExplorer<CR>
@@ -20,6 +20,10 @@ if bufwinnr(1)
   map * <c-w><
   map / <c-w>>
 endif
+
+nmap <C-t> :call RecentFilesList()<cr>
+au BufReadPost,BufWritePost * call RecentFilesAdd() 
+
 filetype plugin indent on
 :au WinEnter * if (exists("b:colors_name")) | let b:current_colors=colors_name
       \| execute "colorscheme " . b:colors_name | endif
@@ -141,3 +145,4 @@ nnoremap <silent> sr     :FufRenewCache<CR>
 :set wcm=<C-Z>
 :map <F4> :emenu <C-Z>
 
+:set viminfo+=!

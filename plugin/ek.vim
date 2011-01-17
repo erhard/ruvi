@@ -34,7 +34,9 @@ function! Extended_cursor_toggle()
 endfunction
 
 
+function! RgrepTheWord()
 
 
 
 
+endfunction

@@ -28,7 +28,9 @@ function! CukeSpec()
   if l:current_file =~ "feature"
     let l:branch = "feature"
     let l:localWorkingDir = getcwd()
-    let l:comm = "cd ".l:localWorkingDir." & script/cucumber ".filename." --format Cucumber::Formatter::Pretty"
+"    let l:comm = "cd ".l:localWorkingDir." & script/cucumber ".filename." --format Cucumber::Formatter::Pretty"
+
+    let l:comm = "cd ".l:localWorkingDir." & script/cucumber ".filename
     :echo l:comm
     let l:buf    = 'featureIt'
   elseif l:current_file =~ "_spec.rb"

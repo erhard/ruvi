@@ -6,7 +6,9 @@ All the plugins can do a lot of more things as described here.
 The aim of this project is a testdriven workflow for Ruby on Rails with screen and vim. So only those things are explained what I think is usefull (If You have suggestions mail...)
 Somtimes I only write examples Its up to you to extend it on other things)
 
-All the plugins (except of ek.vim) are existing plugins and not programmed by me i-> for copyrights read there.
+All the plugins (except of ek.vim) are existing plugins and not programmed by me -> for copyrights read there.
+
+It supports cucumber,rspec and rvm 
 
 
 
@@ -21,6 +23,11 @@ keymappings useful for the workflow
 
 :b<n>    switch to buffer with the number   example :  :b5
 F5       Indent the whole File. The cursor remains on the place where it was (its gg=G with saving the cursor position) 
+
+C-R C-W  Insterts the word under the cursor, when You are in the command-line
+
+F9        Gives a list of all buffers - Enter the number to switch the current window(where the cursor is) to the new window
+c-t       Gives a list of recent opened files choose one by number
 
 
 FuzzySearch
@@ -39,6 +46,16 @@ When a project was selected the Rootdir with typing cd in the NERDTree Window to
 When a function centered view is wanted press <F7>.
   
 To get help Type :h Fuf  and <TAB>  So You get all possible help for Fufs . Instead of Fuf of course You can put something else (:h function gives a overview)
+
+Jumping to a method under the cursor
+
+First You have to use ctag (ctag must be installed as a package it is not only a plugin (in ubuntu exuberant-ctags)
+Then run on the root of your dev ctag -R *
+This is initial work
+
+When You are in a method type in the normal mode Ctrl-] to jump to the method source. In the method source type Ctrl-r to jump back to the origin. 
+
+
 
 
 
@@ -64,19 +81,13 @@ C-PgUp and C-PgDwn to switch between the tabs
 recursive search
 
 
-C-S W   zooming a window (only when two windows are opended)
-
-
+C-w o   zooming a window and restoring original size
+enter a ruby command and press tab -> you see a selection of possible commands
 
 
 The IDE will in future a mixture between screen and VIM so here begins se screen section
 
 
-
-RVM support
-
-Within this ruvi you can the the ruby and the gemset you are on.
-If you want to change the gemset do it before starting vim
 
 
 
@@ -86,3 +97,10 @@ Screen :
 
 C-a A  Name a screen
 
+
+
+
+Revision
+
+2010/01/03
+changed autoresize (its for 2 windows only) against ZoomWin
