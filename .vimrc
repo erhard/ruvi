@@ -68,11 +68,15 @@ endif
 "Gag : Rot13 the whole buffer
 map <F12> ggVGg?
 
-"  colorscheme matrix
-colorscheme zenburn
+  colorscheme matrix
+"colorscheme zenburn
 "    colorscheme csspretty
 "   colorscheme dark-ruby
 "   colorscheme maroloccio
+
+ "  colorscheme newspaper
+
+
 
 " Execute open rspec buffer
 " Thanks to Ian Smith-Heisters

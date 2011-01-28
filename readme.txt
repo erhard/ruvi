@@ -26,6 +26,7 @@ F5       Indent the whole File. The cursor remains on the place where it was (it
 
 C-R C-W  Insterts the word under the cursor, when You are in the command-line
 
+
 F9        Gives a list of all buffers - Enter the number to switch the current window(where the cursor is) to the new window
 c-t       Gives a list of recent opened files choose one by number
 
@@ -101,6 +102,11 @@ C-a A  Name a screen
 
 
 Revision
+
+
+2010/01/28
+Added C-t functionality -list recent files
+
 
 2010/01/03
 changed autoresize (its for 2 windows only) against ZoomWin
