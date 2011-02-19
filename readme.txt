@@ -1,5 +1,8 @@
 RuVi
 
+
+
+
 RubyVim is an IDE for Ruby and Ruby on Rails based on plugins around vim and screen
 
 All the plugins can do a lot of more things as described here. 
@@ -57,9 +60,6 @@ This is initial work
 When You are in a method type in the normal mode Ctrl-] to jump to the method source. In the method source type Ctrl-r to jump back to the origin. 
 
 
-
-
-
 BDD and TDD
      
 S-F10
@@ -90,23 +90,35 @@ The IDE will in future a mixture between screen and VIM so here begins se screen
 
 
 
+ 
 
+:DirDiff 
 
+If You want to use DirDiff do the following i:
+go to the plugin Dir of .vim Edit Dirdiff.vim 
+around line 97 you find this
+
+"   String used for the English equivalent "Files "
+    let g:DirDiffTextFiles = "Dateien "
+"   String used for the English equivalent " and "
+       let g:DirDiffTextAnd = " und "
+"   String used for the English equivalent " differ")
+       let g:DirDiffTextDiffer = " sind verschieden"
+"   String used for the English equivalent "Only in ")
+       let g:DirDiffTextOnlyIn = "Nur in "
+
+Edit this for your language. It must correspond to the expressions you see in the Diff window of the directory, beause this
+is used to seperate the compared filenames for dig into them.
 
 
 Screen :
 
 C-a A  Name a screen
 
-
-
-
 Revision
-
 
 2010/01/28
 Added C-t functionality -list recent files
-
 
 2010/01/03
 changed autoresize (its for 2 windows only) against ZoomWin
