@@ -1,1 +1,2 @@
 ZoomWin.vba: call delete('/home/erhard/.vim/plugin/ZoomWinPlugin.vim')|call delete('/home/erhard/.vim/doc/ZoomWin.txt')|call delete('/home/erhard/.vim/autoload/ZoomWin.vim')
+xmledit-1.9.1.vba: call delete('/home/erhard/.vim/ftplugin/xml.vim')|call delete('/home/erhard/.vim/doc/xml-plugin.txt')

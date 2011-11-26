@@ -3,7 +3,7 @@
 " Description: plugin for Running Rspec or Cucumber on a File
 "              Tested on Linux Jruby Cucumber 8.3 and Rspec 2.0
 " Maintainer:  Erhard Karger  <erhard /at/ kargers /dot/ org>
-" Last Change: 17 July, 2009
+" Last Change: 04 May, 2011
 " License:     This program is free software. It comes without any warranty,
 "              to the extent permitted by applicable law. You can redistribute
 "              it and/or modify it under the terms of the Do What The Fuck You
@@ -20,23 +20,33 @@ endfunction
 
 
 function! CukeSpec()
+  "write
   let l:current_file = GetFile()
   let l:filename   = bufname('%')
   let l:branch = ""
   let l:comm = ""
   let l:buf= ""
+if exists("g:rerun") && g:rerun == 1 &&g:lastFileName
+     let l:filename = g:lastFileName
+     let l:current_file = g:lastFileName
+   else
+     let g:lastFileName = l:current_file
+endif
+  let g:rerun=0
   if l:current_file =~ "feature"
     let l:branch = "feature"
     let l:localWorkingDir = getcwd()
-"    let l:comm = "cd ".l:localWorkingDir." & script/cucumber ".filename." --format Cucumber::Formatter::Pretty"
+    "    let l:comm = "cd ".l:localWorkingDir." & script/cucumber ".filename." --format Cucumber::Formatter::Pretty"
 
     let l:comm = "cd ".l:localWorkingDir." & script/cucumber ".filename
+    let g:last_command = l:comm
     :echo l:comm
     let l:buf    = 'featureIt'
   elseif l:current_file =~ "_spec.rb"
     let l:branch = "spec"  
     let l:buf    = 'specIt'
-    let l:comm = "spec ".l:filename        
+    let l:comm = "rspec -b ".l:filename        
+    let g:last_command = l:comm
   else
     :echo "Sorry go in a spec or featureFile and start by pressing C-S F10"    
     return

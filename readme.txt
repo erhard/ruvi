@@ -1,8 +1,5 @@
 RuVi
 
-
-
-
 RubyVim is an IDE for Ruby and Ruby on Rails based on plugins around vim and screen
 
 All the plugins can do a lot of more things as described here. 
@@ -46,8 +43,9 @@ For FileExploring mostly NERDTree and Fuf (Fuzzyfinder) is used. You see the Fil
 Now you the Project registered. Enter Shift - B (S-B)
 --> you can see the project at top of the window. So it is "jumpable" from every place.
 
-When a project was selected the Rootdir with typing cd in the NERDTree Window to your current working Dir (this is necessary to use rsepc and cucumber properly, to run the scripts etc.)
+When a project was selected the rootdir with typing "cd" (no Enter)in the NERDTree Window to your current working Dir (this is necessary to use rsepc and cucumber properly, to run the scripts etc.)
 When a function centered view is wanted press <F7>.
+If you want see the hidden files type "i" . 
   
 To get help Type :h Fuf  and <TAB>  So You get all possible help for Fufs . Instead of Fuf of course You can put something else (:h function gives a overview)
 
@@ -86,15 +84,19 @@ C-w o   zooming a window and restoring original size
 enter a ruby command and press tab -> you see a selection of possible commands
 
 
-The IDE will in future a mixture between screen and VIM so here begins se screen section
+Copy actual buffer in commandline
+
+Mark and copy some words to the buffer
+Enter a command in the commandline and press
+
+<ctrl+r>"
 
 
 
+:DirDiff
+
+DirDiff is a recusive powerful directory comparison.
  
-
-:DirDiff 
-
-If You want to use DirDiff do the following i:
 go to the plugin Dir of .vim Edit Dirdiff.vim 
 around line 97 you find this
 
@@ -111,11 +113,39 @@ Edit this for your language. It must correspond to the expressions you see in th
 is used to seperate the compared filenames for dig into them.
 
 
-Screen :
 
-C-a A  Name a screen
+Debugging a rails-App
+
+Following gems has to be installed :
+
+ruby-debug
+ruby-debug-ide
+
+In the gemfile of your application uncomment the ruby-debug gem
+if using vim start vim with vim --servername VIM
+With gvim nothing
+Start the server with :Rdedebugger 'script/rails s'
+Go in a file and set a breakpoint
+Call it via your browser.
+
+Here some useful links :
+
+https://github.com/astashov/vim-ruby-debugger
+
+
+
+
+
 
 Revision
+
+
+
+2011/02/28
+Added <F10> repeat the last spec or feature command
+
+2011/02/21
+Added Ruby-debug
 
 2010/01/28
 Added C-t functionality -list recent files

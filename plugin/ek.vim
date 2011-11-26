@@ -12,7 +12,10 @@
 " ============================================================================
 function! Ek_initializer()
     let g:ek_toggle_cursor_status = 0
-endfunction
+
+  
+  
+  endfunction
 
 function! SaveFormatter()
     let view = winsaveview()
@@ -33,10 +36,7 @@ function! Extended_cursor_toggle()
     endif
 endfunction
 
-
-function! RgrepTheWord()
-
-
-
-
+function! Lastcommandexecute()
+let g:rerun = 1
+   :call CukeSpec()
 endfunction

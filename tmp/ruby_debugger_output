@@ -1,0 +1,49 @@
+/home/erhard/.rvm/gems/jruby-1.5.5@sveta_gems/gems/ruby-debug-base-0.10.4-java/lib/ruby-debug-base.rb:214 warning: tracing (e.g. set_trace_func) will not capture all events without --debug flag
+Fast Debugger (ruby-debug-ide 0.4.16, ruby-debug-base 0.10.3.2) listens on 127.0.0.1:39767
+DEPRECATION WARNING: RAILS_ENV is deprecated. Please use ::Rails.env. (called from /home/erhard/Daten/programmierung/current/bibi/config/application.rb:44)
+=> Booting WEBrick
+=> Rails 3.0.4 application starting in development on http://0.0.0.0:3000
+=> Call with -d to detach
+=> Ctrl-C to shutdown server
+initializing goldberg plugin
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/migrator.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/crypto_pass_sha512.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/helper.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/controller.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/migration.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/crypto_pass_sha1.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/filters.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/constants.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/test_helper.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/routing.rb
+/home/erhard/Daten/programmierung/current/bibi/vendor/plugins/goldberg/lib/goldberg/model.rb
+[2011-02-20 22:04:50] INFO  WEBrick 1.3.1
+[2011-02-20 22:04:50] INFO  ruby 1.8.7 (2010-11-10) [java]
+[2011-02-20 22:04:55] INFO  WEBrick::HTTPServer#start: pid=15314 port=3000
+/home/erhard/.rvm/gems/jruby-1.5.5@sveta_gems/gems/ruby-debug-ide-0.4.16/lib/ruby-debug/commands/variables.rb:69 warning: ObjectSpace is disabled; _id2ref only supports immediates, pass -X+O to enable
+/home/erhard/.rvm/gems/jruby-1.5.5@sveta_gems/gems/ruby-debug-ide-0.4.16/lib/ruby-debug/commands/variables.rb:69 warning: ObjectSpace is disabled; _id2ref only supports immediates, pass -X+O to enable
+view_default
+
+
+Started GET "/" for 0:0:0:0:0:0:0:1 at Sun Feb 20 22:05:52 +0100 2011
+  Processing by Goldberg::ContentPagesController#view_default as HTML
+  [1m[36mGoldberg::SystemSettings Load (6.0ms)[0m  [1mSELECT "goldberg_system_settings".* FROM "goldberg_system_settings" LIMIT 1[0m
+Setting user...
+  [1m[35mCACHE (0.0ms)[0m  SELECT "goldberg_system_settings".* FROM "goldberg_system_settings" LIMIT 1
+  [1m[36mGoldberg::Role Load (2.0ms)[0m  [1mSELECT "goldberg_roles".* FROM "goldberg_roles" WHERE "goldberg_roles"."id" = 1 LIMIT 1[0m
+Logging in user as role Public
+Checking that page exists...
+Checking permissions...
+  [1m[35mGoldberg::ContentPage Load (15.0ms)[0m  SELECT "goldberg_content_pages".* FROM "goldberg_content_pages" WHERE "goldberg_content_pages"."id" = 1 LIMIT 1
+Rendered vendor/plugins/goldberg/app/views/goldberg/menu_items/_suckerfish.rhtml (33.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/menu_items/_suckerfish.rhtml (127.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/menu_items/_suckerfish.rhtml (29.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/menu_items/_suckerfish.rhtml (410.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/menu_items/_suckerfish.rhtml (29.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/menu_items/_suckerfish.rhtml (614.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/menu_items/_breadcrumbs.rhtml (14.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/auth/_login.rhtml (84.0ms)
+Rendered layouts/_timestamp.html.erb (9.0ms)
+Rendered vendor/plugins/goldberg/app/views/goldberg/content_pages/view_default.rhtml within layouts/application (1642.0ms)
+Completed 200 OK in 1464006ms (Views: 1715.0ms | ActiveRecord: 23.0ms)
