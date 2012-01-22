@@ -1,6 +1,8 @@
-RuVi
+ ruViMux
 
-RubyVim is an IDE for Ruby and Ruby on Rails based on plugins around vim and screen
+
+
+RubyVim is an IDE for Ruby and Ruby on Rails based on plugins around vim and tmux 
 
 All the plugins can do a lot of more things as described here. 
 The aim of this project is a testdriven workflow for Ruby on Rails with screen and vim. So only those things are explained what I think is usefull (If You have suggestions mail...)
@@ -13,10 +15,41 @@ It supports cucumber,rspec and rvm
 
 
 Installation
---make a symbolic link to ruvi or copy the content from ruvi to .vim
+--make a symbolic link to ruvi or copy the content from ruvi to ~/.vim
+--if tmux is not installed on your system install it.
 --copy .vimrc in your HomeDir.
+--copy ide.sh from extern to your bin-path
+--copy tm.sh from extern to your bin-path
+--copy the file menu_items from extern to your bin-path
+
+--modify menu_items according to your rails projects
 
 
+
+Start ide.sh
+
+And choose a project
+
+A screen should come up with 2 panes :
+
+1. vim (and Nerdtree)
+2. autotest which runs the specs
+
+There is a second window in this session with 2 panes :
+
+1. less -f log/test.log
+2. rails s  
+
+In the extern - dir there is also .tmux.conf
+If you copy this you have my tmux keys.
+
+
+How it works in generall
+
+the ide.sh  startup is a bash script which shows a menuscreen with your project so adopt it to your projects 
+
+Then a cd to your rails-Project is done an tm.sh is started with the name of your project.
+In tm.sh the geometry bash servers and vim pane is configured. 
 
 
 keymappings useful for the workflow

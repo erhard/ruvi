@@ -1,5 +1,10 @@
 "to use ek.vim functionality this is necessary
 :au VimEnter * :call Ek_initializer()
+autocmd VimEnter * NERDTree
+autocmd BufEnter * NERDTreeMirror
+
+
+
 :map #2 :FufFile<CR>
 :map #3 :FufMruCmd<CR>
 :map #5 :call SaveFormatter()<CR> 
@@ -7,11 +12,16 @@
 :map #7 :TlistToggle<CR>
 :map #8 :NERDTree<CR>
 :map <F10> :call Lastcommandexecute()<CR>
+:map <S-F10> :ctags -R `bundle show rails`/../*
+map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+map <S-F9> :s/^/\#/<CR>:nohlsearch<CR>
+map <C-F9> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
+
 :nnoremap #9 :buffers<CR>:buffer<Space>
 nnoremap <silent> #11 :BufExplorer<CR>
 nnoremap <silent> <S-F11> :shell<CR>
 map <S-C-b>  :call g:RubyDebugger.toggle_breakpoint()<CR>
-map <S-C-v>  :call g:RubyDebugger.open_variables()<CR>
+map <S-C-x>  :call g:RubyDebugger.open_variables()<CR>
 map <S-C-m>  :call g:RubyDebugger.open_breakpoints()<CR>
 map <S-C-t>  :call g:RubyDebugger.open_frames()<CR>
 map <S-C-F6>  :call g:RubyDebugger.step()<CR>
@@ -21,7 +31,9 @@ map <S-C-c>  :call g:RubyDebugger.continue()<CR>
 map <S-C-e>  :call g:RubyDebugger.exit()<CR>
 map <S-C-d>  :call g:RubyDebugger.remove_breakpoints()<CR>
 
+
 :set mouse=r
+":set foldmethod=indent
 if bufwinnr(1)
     map + <C-W>+
     map - <C-W>-
@@ -37,7 +49,7 @@ filetype plugin indent on
             \| execute "colorscheme " . b:colors_name | endif
 :au BufLeave * if (exists("b:current_colors")) | execute "colorscheme " . b:current_colors | endif
 let g:fuf_bookmark_prompt = '>Bookmark>'
-
+let g:vlh_repository_dir = "~/.localhistory" 
 
 set incsearch " BUT do highlight as you type you 
 set ruler
@@ -156,3 +168,21 @@ nnoremap <silent> sr     :FufRenewCache<CR>
 :set wcm=<C-Z>
 :map <F4> :emenu <C-Z>
 :set viminfo+=!
+
+"set smartsearch whic means ignore case by default but if there is an
+"uppercase letter with the expression it is casesesitive
+:set ic
+:set scs 
+au FileType xml exe ":silent 1,$!tidy --input-xml true --indent yes 2>/dev/null"
+
+
+
+"Autoread with external changes
+augroup vimrcAu
+  au!
+  au BufEnter,BufNew development.log setlocal autoread
+augroup END
+
+
+
+
