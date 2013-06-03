@@ -1,188 +1,277 @@
-"to use ek.vim functionality this is necessary
-:au VimEnter * :call Ek_initializer()
-autocmd VimEnter * NERDTree
-autocmd BufEnter * NERDTreeMirror
+" Environment {
+" Basics {
+set nocompatible
+" }
+"All the Bundle {
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-pathogen.git'
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'tpope/vim-rails.git'
+Bundle 'scrooloose/nerdtree.git'
+Bundle 'vim-scripts/ZoomWin.git'
+Bundle 'vim-scripts/ScrollColors'
+Bundle 'vim-scripts/grep.vim.git' 
+Bundle 'tpope/vim-rvm.git'
+Bundle 'tsaleh/vim-supertab.git'
+Bundle 'hjdivad/vimlocalhistory.git'
+Bundle 'vim-scripts/AutoTag.git'
+Bundle 'duellj/DirDiff.vim.git'
+Bundle 'vim-scripts/ScrollColors.git'
+Bundle 'tpope/vim-surround.git'
+Bundle 'scrooloose/nerdcommenter.git'
+Bundle 'erhard/vim_function_pool.git'
+Bundle 'mattn/zencoding-vim'
+Bundle 'motemen/git-vim'
+Bundle 'majutsushi/tagbar'
+
+" Vi-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'vim-scripts/mru.vim.git'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "honza/snipmate-snippets"
+Bundle "SirVer/ultisnips.git"
+Bundle "kchmck/vim-coffee-script.git"
+Bundle "tpope/vim-abolish.git"
 
 
 
-:map #2 :FufFile<CR>
-:map #3 :FufMruCmd<CR>
+
+"Bundle garbas/vim-snipmate
+
+
+
+
+"}
+" Windows Compatible {
+" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+" across (heterogeneous) systems easier.
+if has('win32') || has('win64')
+    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+endif
+" }
+"
+" Setup Bundle Support {
+" The next two lines ensure that the ~/.vim/bundle/ system works
+runtime! bundle/vim-pathogen/autoload/pathogen.vim
+silent! call pathogen#helptags()
+
+"Here can put all bundle path even no standard
+silent! call pathogen#runtime_append_all_bundles("bundle")
+
+" }
+
+" }
+
+
+" General {
+if !has('win32') && !has('win64')
+    set term=$TERM " Make arrow and other keys work
+endif
+filetype plugin indent on " Automatically detect file types.
+"syntax on " syntax highlighting
+"set mouse=a " automatically enable mouse usage
+"set autochdir " always switch to the current file directory.. Messes with some plugins, best left commented out
+" not every vim is compiled with this, use the following line instead
+" If you use command-t plugin, it conflicts with this, comment it out.
+"autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+scriptencoding utf-8
+set autowrite " automatically write a file when leaving a modified buffer
+"set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
+set virtualedit=onemore " allow for cursor beyond last character
+set history=1000 " Store a ton of history (default is 20)
+"set spell " spell checking on
+" Setting up the directories {
+"set backup " backups are nice ...
+"set undofile " so is persistent undo ...
+"set undolevels=1000 "maximum number of changes that can be undone
+"set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+" Moved to function at bottom of the file
+"set backupdir=$HOME/.vimbackup// " but not when they clog .
+"set directory=$HOME/.vimswap// " Same for swap files
+"set viewdir=$HOME/.vimviews// " same for view files
+"" Creating directories if they don't exist
+"silent execute '!mkdir -p $HVOME/.vimbackup'
+"silent execute '!mkdir -p $HOME/.vimswap'
+"silent execute '!mkdir -p $HOME/.vimviews'
+au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
+"au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
+" }
+" }
+"Snippmate soll auch erb files verstehen
+au BufRead,BufNewFile *.erb set filetype=erb.html
+"UltiSnips Searchpath for ruby
+ let g:UltiSnipsSnippetDirectories=["UltiSnips", "mycoolsnippets"]
+
+
+" Vim UI {
+set tabpagemax=15 " only show 15 tabs
+set showmode " display the current mode
+set cursorline " highlight current line
+hi cursorline guibg=#333333 " highlight bg color of current line
+hi CursorColumn guibg=#333333 " highlight cursor
+
+if has('cmdline_info')
+    set ruler " show the ruler
+    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+    set showcmd " show partial commands in status line and
+    " selected characters/lines in visual mode
+endif
+
+if has('statusline')
+    set laststatus=2
+
+    " Broken down into easily includeable segments
+    set statusline=%<%f\ " Filename
+    "set statusline+=%w%h%m%r " Options
+   " set statusline+=%{fugitive#statusline()} " Git Hotness
+    "set statusline+=\ [%{&ff}/%Y] " filetype
+    set statusline+=\ [%{getcwd()}] " current dir
+    "set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
+    "set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+endif
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+set backspace=indent,eol,start " backspace for dummys
+set linespace=0 " No extra spaces between rows
+set nu " Line numbers on
+set showmatch " show matching brackets/parenthesis
+set incsearch " find as you type search
+set hlsearch " highlight search terms
+set winminheight=0 " windows can be 0 line high
+set ignorecase " case insensitive search
+set smartcase " case sensitive when uc present
+set wildmenu " show list instead of just completing
+set wildmode=list:longest,full " command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
+set scrolljump=5 " lines to scroll when cursor leaves screen
+set scrolloff=3 " minimum lines to keep above and below cursor
+set foldenable " auto fold code
+set gdefault " the /g flag on :s substitutions by default
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
+" }
+
+" Formatting {
+"set nowrap " wrap long lines
+set autoindent " indent at the same level of the previous line
+set shiftwidth=4 " use indents of 4 spaces
+set expandtab " tabs are spaces, not tabs
+" }
+
+vnoremap : y:<C-r>"<C-b>
+
+autocmd FileType coffee  map #3 :CoffeeCompile <CR>
+:nmap <leader>w :s/\(<c-r>=expand("<cword>")<cr>\)/
+:nmap #4 :s/\(<c-r>=expand("<cword>")<cr>\)/
 :map #5 :call SaveFormatter()<CR> 
-:map #6 :NERDTreeToggle<CR>
+:map #6 :call CopyLine()<CR>
+:map <S-F6> :CommandTBuffer<CR>
 :map #7 :TlistToggle<CR>
 :map #8 :NERDTree<CR>
-:map <F10> :call Lastcommandexecute()<CR>
-:map <S-F10> :ctags -R `bundle show rails`/../*
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-map <S-F9> :s/^/\#/<CR>:nohlsearch<CR>
-map <C-F9> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
-
+:map #9 :setlocal spell spelllang=en_us
+:map <S-F9>:set nospell 
+:map <C-Y> :CommandT<CR>
+:map <C-T> :tabnew<CR>
+nnoremap <silent> <F3> :Rgrep -i --exclude=.git --exclude=*tags --exclude=*.log --exclude=*.swp --exclude=*.tmp --exclude .~<CR>
 :nnoremap #9 :buffers<CR>:buffer<Space>
-nnoremap <silent> #11 :BufExplorer<CR>
-nnoremap <silent> <S-F11> :shell<CR>
-map <S-C-b>  :call g:RubyDebugger.toggle_breakpoint()<CR>
-map <S-C-x>  :call g:RubyDebugger.open_variables()<CR>
-map <S-C-m>  :call g:RubyDebugger.open_breakpoints()<CR>
-map <S-C-t>  :call g:RubyDebugger.open_frames()<CR>
-map <S-C-F6>  :call g:RubyDebugger.step()<CR>
-map <S-C-f>  :call g:RubyDebugger.finish()<CR>
-map <S-C-F5>  :call g:RubyDebugger.next()<CR>
-map <S-C-c>  :call g:RubyDebugger.continue()<CR>
-map <S-C-e>  :call g:RubyDebugger.exit()<CR>
-map <S-C-d>  :call g:RubyDebugger.remove_breakpoints()<CR>
-
-
-:set mouse=r
-":set foldmethod=indent
-if bufwinnr(1)
-    map + <C-W>+
-    map - <C-W>-
-    map * <c-w><
-    map / <c-w>>
-endif
-
-nmap <C-t> :call RecentFilesList()<cr>
-au BufReadPost,BufWritePost * call RecentFilesAdd() 
-let g:ruby_debugger_debug_mode = 1
-filetype plugin indent on
-:au WinEnter * if (exists("b:colors_name")) | let b:current_colors=colors_name
-            \| execute "colorscheme " . b:colors_name | endif
-:au BufLeave * if (exists("b:current_colors")) | execute "colorscheme " . b:current_colors | endif
-let g:fuf_bookmark_prompt = '>Bookmark>'
-let g:vlh_repository_dir = "~/.localhistory" 
-
-set incsearch " BUT do highlight as you type you 
-set ruler
-set nocompatible " explicitly get out of vi-compatible mode
-set term=xterm-256color
-set visualbell
+colorscheme ron
+filetype off                   " required!
+set number
 set mouse=a
-set hlsearch "highlite search results
-set whichwrap=b,s,h,l,<,>,~,[,] " everything wraps
-set matchtime=5 " how many tenths of a second to blink
-set nostartofline " leave my cursor where it was
-set number " turn on line numbers
-set numberwidth=5 " We are good up to 99999 lines
-set report=0 " tell us when anything is changed via :...
-set scrolloff=10 " Keep 10 lines (top/bottom) for scope
-set shortmess=aOstT " shortens messages to avoid
-" 'press a key' prompt
-set showcmd " show the command being typed
-set showmatch " show matching brackets
-set sidescrolloff=10 " Keep 5 lines at the size
-set expandtab " no real tabs please!
-if has("gui_running")
-    " Basics {
-    colorscheme metacosm " my color scheme (only works in GUI)
-    set columns=180 " perfect size for me
-    set guifont=Consolas:h10 " My favorite font
-    set guioptions=ce 
-    "              ||
-    "              |+-- use simple dialogs rather than pop-ups
-    "              +  use GUI tabs, not console style tabs
-    set lines=55 " perfect size for me
-    set mousehide " hide the mouse cursor when typing
-    " }
-endif
+filetype plugin indent on     " required! 
 
-"Gag : Rot13 the whole buffer
-map <F12> ggVGg?
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+set viminfo+=!
+set nocompatible
 
-colorscheme matrix
-"colorscheme zenburn
-"    colorscheme csspretty
-"   colorscheme dark-ruby
-"   colorscheme maroloccio
-
-"  colorscheme newspaper
+"copies selection automatically to xtemclipboard
+set clipboard+=autoselect
+set guioptions+=a
 
 
-" Execute open rspec buffer
-" Thanks to Ian Smith-Heisters
-function! RunSpec(args)
-    if exists("b:rails_root") && filereadable(b:rails_root . "/script/spec")
-        let spec = b:rails_root . "/script/spec"
-    else
-        let spec = "spec"
-    end
-    let cmd = ":! " . spec . " % -cfn " . a:args
-    execute cmd
+
+"new
+
+"nnoremap <up> <nop>
+"nnoremap <down> <nop>
+"nnoremap <left> <nop>
+"nnoremap <right> <nop>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
+"nnoremap j gj
+"nnoremap k gk
+"
+
+
+
+"ende new
+autocmd BufNewFile,BufRead *.html.erb set filetype=html.eruby
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+"au BufWritePost *.coffee silent CoffeeMake!
+au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
+
+"autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+"autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
+highlight Pmenu ctermbg=114 gui=bold
+
+
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+function! SaveFormatter()
+    let view = winsaveview()
+    normal gg=G
+    :call winrestview(view)
+endfunction 
+
+"autocmd BufWriteCmd *.html,*.css,*.erb, *.js, *.gtpl :call Refresh_firefox()
+function! Refresh_firefox()
+    if &modified
+        write
+        silent !echo  'vimYo = content.window.pageYOffset;
+                    \ vimXo = content.window.pageXOffset;
+                    \ BrowserReload();
+                    \ content.window.scrollTo(vimXo,vimYo);
+                    \ repl.quit();'  |
+                    \ nc localhost 4242 2>&1 > /dev/null
+    endif
 endfunction
 
-" Mappings
-" run one rspec example or describe block based on cursor position
-map !s :call RunSpec()<CR>
-" run full rspec file
-map !S :call RunSpecs()<CR>
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y%{exists('g:loaded_fugitive')?fugitive#statusline():''}%{exists('g:loaded_rvm')?rvm#statusline():''}%=%-16(\ %l,%c-%v\ %)%P
-
-let g:fuf_modesDisable = []
-let g:fuf_mrufile_maxItem = 400
-let g:fuf_mrucmd_maxItem = 400
-
-" call fuf#setOneTimeVariables(['g:fuf_coveragefile_globPatterns', g:fuf_coveragefile_globPatterns + ['~/**/.*', '~/**/*']]) | FufCoverageFile
-
-nnoremap <silent> sj     :FufBuffer<CR>
-nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
-nnoremap <silent> sK     :FufFileWithFullCwd<CR>
-nnoremap <silent> s<C-k> :FufFile<CR>
-nnoremap <silent> sl     :FufCoverageFileChange<CR>
-nnoremap <silent> sL     :FufCoverageFileChange<CR>
-nnoremap <silent> s<C-l> :FufCoverageFileRegister<CR>
-nnoremap <silent> sd     :FufDirWithCurrentBufferDir<CR>
-nnoremap <silent> sD     :FufDirWithFullCwd<CR>
-nnoremap <silent> s<C-d> :FufDir<CR>
-nnoremap <silent> sn     :FufMruFile<CR>
-nnoremap <silent> sN     :FufMruFileInCwd<CR>
-nnoremap <silent> sm     :FufMruCmd<CR>
-nnoremap <silent> su     :FufBookmarkFile<CR>
-nnoremap <silent> s<C-u> :FufBookmarkFileAdd<CR>
-vnoremap <silent> s<C-u> :FufBookmarkFileAddAsSelectedText<CR>
-nnoremap <silent> si     :FufBookmarkDir<CR>
-nnoremap <silent> s<C-i> :FufBookmarkDirAdd<CR>
-nnoremap <silent> st     :FufTag<CR>
-nnoremap <silent> sT     :FufTag!<CR>
-nnoremap <silent> s<C-]> :FufTagWithCursorWord!<CR>
-nnoremap <silent> s,     :FufBufferTag<CR>
-nnoremap <silent> s<     :FufBufferTag!<CR>
-vnoremap <silent> s,     :FufBufferTagWithSelectedText!<CR>
-vnoremap <silent> s<     :FufBufferTagWithSelectedText<CR>
-nnoremap <silent> s}     :FufBufferTagWithCursorWord!<CR>
-nnoremap <silent> s.     :FufBufferTagAll<CR>
-nnoremap <silent> s>     :FufBufferTagAll!<CR>
-vnoremap <silent> s.     :FufBufferTagAllWithSelectedText!<CR>
-vnoremap <silent> s>     :FufBufferTagAllWithSelectedText<CR>
-nnoremap <silent> s]     :FufBufferTagAllWithCursorWord!<CR>
-nnoremap <silent> sg     :FufTaggedFile<CR>
-nnoremap <silent> sG     :FufTaggedFile!<CR>
-nnoremap <silent> so     :FufJumpList<CR>
-nnoremap <silent> sp     :FufChangeList<CR>
-nnoremap <silent> sq     :FufQuickfix<CR>
-nnoremap <silent> sy     :FufLine<CR>
-nnoremap <silent> sh     :FufHelp<CR>
-nnoremap <silent> se     :FufEditDataFile<CR>
-nnoremap <silent> sr     :FufRenewCache<CR>
-:source $VIMRUNTIME/menu.vim
-:set wildmenu
-:set cpo-=<
-:set wcm=<C-Z>
-:map <F4> :emenu <C-Z>
-:set viminfo+=!
-
-"set smartsearch whic means ignore case by default but if there is an
-"uppercase letter with the expression it is casesesitive
-:set ic
-:set scs 
-au FileType xml exe ":silent 1,$!tidy --input-xml true --indent yes 2>/dev/null"
-
-
-
-"Autoread with external changes
-augroup vimrcAu
-  au!
-  au BufEnter,BufNew development.log setlocal autoread
-augroup END
-
-
-
+"copies by input specified section in the buffer
+function! CopyLine()
+    let lines=""
+    let begin=input("From line : ")
+    let endk  = input("to line : ",begin)
+    let r=endk - begin 
+    let i=0
+    while i <= r
+        let pos = begin + i
+        let lines=lines . getline(pos) . "\n"
+        let i=i+1
+    endwhile
+    let @" = lines
+endfunction
 

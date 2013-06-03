@@ -1,0 +1,23 @@
+# you can make as many tabs as you wish...
+project_name: bgal
+project_root: ~/work/bgal
+#socket_name: foo # Not needed.  Remove to use default socket
+rvm: jruby-1.7.1@masha_gems
+pre: source ~/.bashrc
+tabs:
+  - editor:
+      layout: main-vertical
+      panes:
+        - cd ~/work/bgal && vim
+        - source ~/.bashrc && cd ~/work/bgal
+  - shell: source ~/.bashrc && cd ~/work/bgal
+  - databases:
+      panes:
+        - source ~/.bashrc &&  mysql -u -root -p
+        - source ~/.bashrc && mongo
+  - server: cd ~/work/bgal/spec/dummy && bundle exec rails s
+  - logs:
+      panes:
+       - cd ~/work/bgal && less +F spec/dummy/log/development.log
+       - cd ~/work/bgal && less +F spec/dummy/log/test.log
+  - console: cd ~/work/bgal/spec/dummy && bundle exec rails c
