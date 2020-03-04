@@ -21,7 +21,6 @@ Bundle 'vim-scripts/ScrollColors'
 Bundle 'vim-scripts/grep.vim.git' 
 Bundle 'tpope/vim-rvm.git'
 Bundle 'tsaleh/vim-supertab.git'
-Bundle 'hjdivad/vimlocalhistory.git'
 Bundle 'vim-scripts/AutoTag.git'
 Bundle 'duellj/DirDiff.vim.git'
 Bundle 'vim-scripts/ScrollColors.git'
@@ -31,7 +30,7 @@ Bundle 'erhard/vim_function_pool.git'
 Bundle 'mattn/zencoding-vim'
 Bundle 'motemen/git-vim'
 Bundle 'majutsushi/tagbar'
-
+Bundle 'tpope/vim-haml.git'
 " Vi-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -42,11 +41,7 @@ Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
 Bundle "SirVer/ultisnips.git"
 Bundle "kchmck/vim-coffee-script.git"
-Bundle "tpope/vim-abolish.git"
-
-
-
-
+Bundle "https://github.com/terryma/vim-multiple-cursors.git"
 "Bundle garbas/vim-snipmate
 
 
@@ -90,6 +85,13 @@ set autowrite " automatically write a file when leaving a modified buffer
 "set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
 set virtualedit=onemore " allow for cursor beyond last character
 set history=1000 " Store a ton of history (default is 20)
+"let coffee_compiler = '~/local/bin/coffee'
+
+
+"funzt nicht !!
+"set g:UltiSnipsEditSplit="vertical"
+
+
 "set spell " spell checking on
 " Setting up the directories {
 "set backup " backups are nice ...
@@ -111,7 +113,7 @@ au BufWinLeave * silent! mkview "make vim save view (state) (folds, cursor, etc)
 "Snippmate soll auch erb files verstehen
 au BufRead,BufNewFile *.erb set filetype=erb.html
 "UltiSnips Searchpath for ruby
- let g:UltiSnipsSnippetDirectories=["UltiSnips", "mycoolsnippets"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "mycoolsnippets"]
 
 
 " Vim UI {
@@ -119,8 +121,8 @@ set tabpagemax=15 " only show 15 tabs
 set showmode " display the current mode
 set cursorline " highlight current line
 hi cursorline guibg=#333333 " highlight bg color of current line
-hi CursorColumn guibg=#333333 " highlight cursor
-
+hi CursorColumn guibg=#000000 " highlight cursor
+set cursorline cursorcolumn
 if has('cmdline_info')
     set ruler " show the ruler
     set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
@@ -134,7 +136,7 @@ if has('statusline')
     " Broken down into easily includeable segments
     set statusline=%<%f\ " Filename
     "set statusline+=%w%h%m%r " Options
-   " set statusline+=%{fugitive#statusline()} " Git Hotness
+    " set statusline+=%{fugitive#statusline()} " Git Hotness
     "set statusline+=\ [%{&ff}/%Y] " filetype
     set statusline+=\ [%{getcwd()}] " current dir
     "set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
@@ -157,6 +159,8 @@ set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
 set scrolljump=5 " lines to scroll when cursor leaves screen
 set scrolloff=3 " minimum lines to keep above and below cursor
 set foldenable " auto fold code
+set foldmethod=indent
+set foldlevel=5
 set gdefault " the /g flag on :s substitutions by default
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
@@ -168,10 +172,11 @@ set autoindent " indent at the same level of the previous line
 set shiftwidth=4 " use indents of 4 spaces
 set expandtab " tabs are spaces, not tabs
 " }
-
 vnoremap : y:<C-r>"<C-b>
 
-autocmd FileType coffee  map #3 :CoffeeCompile <CR>
+autocmd FileType coffee  map #3 :CoffeeCompile vertical<CR>
+autocmd VimLeave * :mksession! mysession.vi
+
 :nmap <leader>w :s/\(<c-r>=expand("<cword>")<cr>\)/
 :nmap #4 :s/\(<c-r>=expand("<cword>")<cr>\)/
 :map #5 :call SaveFormatter()<CR> 
@@ -183,7 +188,8 @@ autocmd FileType coffee  map #3 :CoffeeCompile <CR>
 :map <S-F9>:set nospell 
 :map <C-Y> :CommandT<CR>
 :map <C-T> :tabnew<CR>
-nnoremap <silent> <F3> :Rgrep -i --exclude=.git --exclude=*tags --exclude=*.log --exclude=*.swp --exclude=*.tmp --exclude .~<CR>
+:map <C-x> :call LHbuffer()<CR>
+nnoremap <silent> <F3> :Rgrep 
 :nnoremap #9 :buffers<CR>:buffer<Space>
 colorscheme ron
 filetype off                   " required!
@@ -195,10 +201,14 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 set viminfo+=!
 set nocompatible
-
+set grepprg=grep\ -nrI\ --exclude-dir=.git\ --exclude-dir=target\ --exclude-dir=tmp\ --exclude-dir=log\ --exclude="*.min.js"\ --exclude="*.log"\ $*\ /dev/null
 "copies selection automatically to xtemclipboard
 set clipboard+=autoselect
 set guioptions+=a
+
+
+  let g:surround_45 = "<% \r %>"
+  let g:surround_97 = "<%= \r %>"
 
 
 
@@ -219,11 +229,11 @@ set guioptions+=a
 
 
 "ende new
+"autocmd VimEnter * nested :call LoadSession()
 autocmd BufNewFile,BufRead *.html.erb set filetype=html.eruby
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 "au BufWritePost *.coffee silent CoffeeMake!
 au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw!
-
 "autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 "autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -260,18 +270,23 @@ function! Refresh_firefox()
     endif
 endfunction
 
-"copies by input specified section in the buffer
-function! CopyLine()
-    let lines=""
-    let begin=input("From line : ")
-    let endk  = input("to line : ",begin)
-    let r=endk - begin 
-    let i=0
-    while i <= r
-        let pos = begin + i
-        let lines=lines . getline(pos) . "\n"
-        let i=i+1
-    endwhile
-    let @" = lines
-endfunction
+
+
+"function! LoadSession()
+"    let b:sessionfile =  "mysession.vim"
+"    if (filereadable(b:sessionfile))
+"        exe 'source ' b:sessionfile
+"    else
+"        echo "No session loaded."
+"    endif
+"endfunction
+"
+"Filetype from shebang
+
+if did_filetype()
+    finish
+endif
+if getline(1) =~# '^#!.*/bin/env\s\+ruby\>'
+    setfiletype ruby
+endif
 
